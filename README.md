@@ -296,22 +296,4 @@ I created 12 DAX measures organized into three levels:
 | **Category Revenue %** | Shows percentage of total within current filter context |
 | **Top Product Rank** | Recalculates ranking based on current filter selections |
 
----
-
-#### Where Each Measure is Used in the Dashboard
-
-| Measure | Dashboard Page | Visual Type |
-|---|---|---|
-| Total Revenue | Page 1, 2, 3 | KPI Card, Bar Charts |
-| Total Orders | Page 1 | KPI Card |
-| Avg Order Value | Page 1 | KPI Card |
-| Total Items Sold | Page 1 | KPI Card |
-| Total Profit | Page 2 | Table, Matrix |
-| Avg Review Score | Page 2 | Bar Chart, Scatter Plot |
-| Avg Delivery Days | Page 3 | Scatter Plot |
-| OnTime % | Page 1, 3 | Donut Chart |
-| Revenue LY | Page 3 | Time trend comparison |
-| Revenue Growth % | Page 3 | Time trend comparison |
-| Category Revenue % | Page 2 | Matrix, Bar Chart |
-| Top Product Rank | Page 2 | Table |
 # Power BI Dashboards
