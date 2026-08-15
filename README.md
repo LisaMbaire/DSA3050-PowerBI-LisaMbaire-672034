@@ -297,3 +297,85 @@ I created 12 DAX measures organized into three levels:
 | **Top Product Rank** | Recalculates ranking based on current filter selections |
 
 # Power BI Dashboards
+I developed **3 interactive dashboard pages** that tell a story from executive overview to detailed product analysis and diagnostic insights.
+
+---
+
+#### Page 1: Executive Overview
+
+**Purpose:** Provide management with an immediate understanding of overall business performance.
+
+**Visuals Used:**
+
+| Visual Type | Fields | Purpose |
+|---|---|---|
+| KPI Cards | Total Revenue, Total Orders, Avg Order Value, OnTime % | Key performance indicators at a glance |
+| Line Chart | X: Month, Y: Total Revenue | Revenue trend over time |
+| Stacked Bar Chart | X: product_category, Y: Total Revenue | Revenue by product category |
+| Donut Chart | Legend: OnTime_Delivery, Values: Total Revenue | Revenue breakdown by delivery status |
+| Slicers | Year, product_category | Interactive filtering |
+
+**Key Insights:**
+- Total Revenue: **546,472**
+- Total Orders: **~3,000**
+- Average Order Value: **~179**
+- Top Categories: health_beauty, sports_leisure, housewares
+
+---
+
+#### Page 2: Detailed Analysis (Product Performance)
+
+**Purpose:** Deep dive into product category performance across different years.
+
+**Visuals Used:**
+
+| Visual Type | Fields | Purpose |
+|---|---|---|
+| KPI Cards | Total Revenue, Total Orders | Key metrics retained for context |
+| Matrix | Rows: product_category, Columns: Year, Values: Total Revenue | Revenue by category across years |
+| Bar Chart | X: product_category, Y: Avg Review Score | Customer satisfaction by category |
+| Slicers | Year, product_category | Interactive filtering |
+
+**Key Insights:**
+- Best performing categories by revenue identified
+- Average review scores vary significantly by category
+- Year-over-year trends visible in the matrix
+
+---
+
+#### Page 3: Diagnostic Analysis
+
+**Purpose:** Investigate relationships between delivery performance and customer satisfaction.
+
+**Visuals Used:**
+
+| Visual Type | Fields | Purpose |
+|---|---|---|
+| KPI Cards | Total Revenue, Avg Order Value | Key metrics retained for context |
+| Bar Chart | X: Year, Y: Total Revenue | Revenue trends by year |
+| Table | product_category, Avg Delivery Days, Avg Review Score | Delivery time vs satisfaction by category |
+| Donut Chart | Legend: OnTime_Delivery, Values: Total Revenue | Revenue breakdown by delivery status |
+| Slicers | Year, product_category | Interactive filtering |
+
+**Key Insights:**
+- Relationship between delivery time and review scores
+- Revenue breakdown by delivery status (On Time vs Delayed vs Not Delivered)
+- Categories with fastest delivery times identified
+
+---
+
+#### Dashboard Navigation
+
+- **Page 1:** Executive Overview → What happened?
+- **Page 2:** Detailed Analysis → Where/What happened?
+- **Page 3:** Diagnostic Analysis → Why did it happen?
+
+#### Interactivity Features Used
+
+| Feature | Where Used | Purpose |
+|---|---|---|
+| Slicers | All pages | Filter by Year and product_category |
+| Cross-filtering | All pages | Click on any visual to filter others |
+| Page navigation | Bottom tabs | Move between pages |
+| Drill-through | Matrix (Page 2) | Drill into specific categories |
+
