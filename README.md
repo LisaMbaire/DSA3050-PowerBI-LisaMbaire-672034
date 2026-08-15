@@ -128,6 +128,13 @@ Also standardized payment types using **Transform → Format → UPPERCASE**:
 **Problem:** Numeric review scores (1-5) needed to be categorized into meaningful groups for easier interpretation by business users.
 
 **Transformation:** Used **Add Column → Conditional Column** to create `Review_Category`:
+- If review_score = 5 → "Excellent"
+- Else If review_score = 4 → "Good"
+- Else If review_score = 3 → "Average"
+- Else If review_score = 2 → "Poor"
+- Else → "Very Poor"
+
+
 # Data Modelling
 # DAX & Business Calculations
 # Power BI Dashboards
