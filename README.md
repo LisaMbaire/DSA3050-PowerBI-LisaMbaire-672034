@@ -20,12 +20,7 @@ Olist is a marketplace that connects thousands of small and medium-sized sellers
 - Reduce order cancellations by analyzing patterns in canceled orders
 
 # Power Query Transformations
-### SECTION B: POWER QUERY TRANSFORMATIONS
-
 I performed 8 significant transformations to clean and prepare the Olist e-commerce dataset for analysis.
-
----
-
 #### Transformation 1: Changing Data Types
 
 **Problem:** All columns were imported as text by default, preventing calculations and date-based analysis.
@@ -167,10 +162,6 @@ Also standardized payment types using **Transform → Format → UPPERCASE**:
 **Result:** A single fact table containing all necessary data for comprehensive analysis.
 
 # Data Modelling
-### SECTION C: DATA MODELLING
-
----
-
 #### 1. Identification of the Main Fact Table
 
 **Fact Table:** `FactOrders`
