@@ -123,17 +123,48 @@ Also standardized payment types using **Transform → Format → UPPERCASE**:
 
 **Result:** Four new columns (Order_Year, Order_Month_Name, Order_Month_Number, Order_Quarter) enable flexible time-based analysis.
 
-#### Transformation 6: Creating Conditional Columns
+#### Transformation 6: Created Conditional Columns
 
 **Problem:** Numeric review scores (1-5) needed to be categorized into meaningful groups for easier interpretation by business users.
 
-**Transformation:** Used **Add Column → Conditional Column** to create `Review_Category`:
+**Transformation:** Used **Add Column → Conditional Column** to create `Review Category`:
 - If review_score = 5 → "Excellent"
 - Else If review_score = 4 → "Good"
 - Else If review_score = 3 → "Average"
 - Else If review_score = 2 → "Poor"
 - Else → "Very Poor"
+#### Transformation 7: Created `On Time Delivery` conditional column:
 
+**Reason:** Conditional columns:
+- Make data more understandable for non-technical users
+- Enable grouping and segmentation in analysis
+- Simplify visualization and dashboard design
+
+**Result:** Two new categorical columns make analysis more intuitive.
+
+#### Transformation 8: Merging Queries (Table Joins)
+
+**Problem:** Data was spread across 7 different CSV files (orders, order items, products, translation, customers, payments, reviews, sellers), making analysis impossible without combining them.
+
+**Transformation:** Used **Merge Queries** to combine all tables into one fact table (`FactOrders`):
+- **Merge 1:** Orders + Order Items (using `order_id`)
+- **Merge 2:** Order Items + Products (using `product_id`)
+- **Merge 3:** Products + Translation (using `product_category_name`)
+- **Merge 4:** Orders + Customers (using `customer_id`)
+- **Merge 5:** Orders + Payments (using `order_id`)
+- **Merge 6:** Orders + Reviews (using `order_id`)
+- **Merge 7:** Order Items + Sellers (using `seller_id`)
+
+**Join Kind:** Left Outer join used throughout to ensure all records were kept.
+
+**Reason:** Merging enables:
+- Analysis across all business dimensions (product, customer, seller, time)
+- Complete order lifecycle tracking
+- Comprehensive business intelligence
+
+**Challenge:** Some orders had no matching items, payments, or reviews (data quality issues). Left Outer join preserved all orders for analysis.
+
+**Result:** A single fact table containing all necessary data for comprehensive analysis.
 
 # Data Modelling
 # DAX & Business Calculations
