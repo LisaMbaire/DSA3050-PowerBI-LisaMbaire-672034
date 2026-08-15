@@ -167,5 +167,82 @@ Also standardized payment types using **Transform → Format → UPPERCASE**:
 **Result:** A single fact table containing all necessary data for comprehensive analysis.
 
 # Data Modelling
+### SECTION C: DATA MODELLING
+
+---
+
+#### 1. Identification of the Main Fact Table
+
+**Fact Table:** `FactOrders`
+
+**Why I selected it as the fact table:**
+- Contains **transactional data** at the order-item level (one row per item in each order)
+- Includes **measurable numeric values** such as:
+  - `Total_Revenue` (price + freight)
+  - `freight_value` (shipping cost)
+  - `Delivery_Days` (calculated delivery time)
+  - `review_score` (customer satisfaction rating)
+- Contains **foreign keys** that link to all dimension tables:
+  - `customer_id` → Links to DimCustomer
+  - `product_id` → Links to DimProduct
+  - `seller_id` → Links to DimSeller
+  - `order_purchase_timestamp` → Links to DimDate
+- Each row represents a **business event** (an item sold in an order)
+- Contains **100,000+ rows** making it suitable for aggregation and analysis
+
+---
+
+#### 2. Creation of Appropriate Dimension Tables
+
+| Dimension Table | Source | Key Column | Description |
+|---|---|---|---|
+| **DimCustomer** | FactOrders (distinct customers) | `customer_id` | Contains customer attributes: unique ID, city, state |
+| **DimProduct** | FactOrders (distinct products) | `product_id` | Contains product attributes: category, weight |
+| **DimSeller** | FactOrders (distinct sellers) | `seller_id` | Contains seller attributes: city, state |
+| **DimDate** | CALENDAR function | `Date` | Contains date attributes: year, month, quarter |
+
+**Why each dimension was created:**
+
+**DimCustomer:**
+- Enables **customer segmentation** analysis
+- Allows **geographic analysis** by customer location
+- Supports **customer behavior** analysis (repeat purchases, order patterns)
+
+**DimProduct:**
+- Enables **product performance** analysis by category
+- Supports **inventory and assortment** decisions
+- Allows **profitability analysis** across product categories
+
+**DimSeller:**
+- Enables **seller performance** analysis
+- Allows **geographic analysis** of seller locations
+- Supports **supply chain and logistics** optimization
+
+**DimDate:**
+- Enables **time-based analysis** (year-over-year, month-over-month)
+- Supports **seasonality and trend** identification
+- Allows **calendar-based filtering** in dashboards
+
+---
+
+#### 3. Primary/Key Fields Suitable for Relationships
+
+| Table | Primary Key | Foreign Key in FactOrders |
+|---|---|---|
+| DimCustomer | `customer_id` | FactOrders[`customer_id`] |
+| DimProduct | `product_id` | FactOrders[`product_id`] |
+| DimSeller | `seller_id` | FactOrders[`seller_id`] |
+| DimDate | `Date` | FactOrders[`order_purchase_timestamp`] |
+
+**Why these keys were chosen:**
+- Each dimension table has a **unique identifier** (primary key)
+- Each fact table record contains the **corresponding identifier** (foreign key)
+- Keys are of **matching data types** (all text, except Date which is date type)
+- Keys are **cleaned and de-duplicated** to ensure uniqueness
+
+---
+
+#### 4. Appropriate Table Relationships
+
 # DAX & Business Calculations
 # Power BI Dashboards
