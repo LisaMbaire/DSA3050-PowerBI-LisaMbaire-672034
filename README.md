@@ -236,4 +236,82 @@ Also standardized payment types using **Transform → Format → UPPERCASE**:
 #### 4. Appropriate Table Relationships
 
 # DAX & Business Calculations
+I created 12 DAX measures organized into three levels:
+#### Level 1: Core Measures (Foundation KPIs)
+
+| Measure | DAX Formula | Purpose |
+|---|---|---|
+| **Total Revenue** | `SUM(FactOrders[Total_Revenue])` | Total sales revenue including shipping |
+| **Total Orders** | `DISTINCTCOUNT(FactOrders[order_id])` | Number of unique orders |
+| **Total Items Sold** | `SUM(FactOrders[order_item_id])` | Total quantity of items sold |
+| **Avg Order Value** | `DIVIDE([Total Revenue], [Total Orders], 0)` | Average revenue per order |
+
+---
+
+#### Level 2: Business Measures (Performance KPIs)
+
+| Measure | DAX Formula | Purpose |
+|---|---|---|
+| **Total Profit** | `SUM(FactOrders[Total_Revenue]) - SUM(FactOrders[freight_value])` | Net profit after shipping costs |
+| **Avg Review Score** | `AVERAGE(FactOrders[review_score])` | Average customer satisfaction rating |
+| **Avg Delivery Days** | `AVERAGE(FactOrders[Delivery_Days])` | Average delivery time in days |
+| **OnTime %** | `DIVIDE(CALCULATE(COUNTROWS(FactOrders), FactOrders[OnTime_Delivery] = "On Time"), COUNTROWS(FactOrders), 0)` | Percentage of orders delivered on time |
+
+---
+
+#### Level 3: Advanced DAX (Time Intelligence & Context Manipulation)
+
+| Measure | DAX Formula | Purpose |
+|---|---|---|
+| **Revenue LY** | `CALCULATE([Total Revenue], SAMEPERIODLASTYEAR(DimDate[Date]))` | Revenue from the same period last year |
+| **Revenue Growth %** | `DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY], 0)` | Year-over-year revenue growth |
+| **Category Revenue %** | `DIVIDE([Total Revenue], CALCULATE([Total Revenue], ALL(DimProduct[product_category])), 0)` | Each category's share of total revenue |
+| **Top Product Rank** | `RANKX(ALL(DimProduct[product_category]), [Total Revenue])` | Rank product categories by revenue |
+
+---
+
+#### Key DAX Functions Used
+
+| Function | Used In | Purpose |
+|---|---|---|
+| `SUM()` | Total Revenue, Total Profit | Aggregates numeric values |
+| `DISTINCTCOUNT()` | Total Orders | Counts unique values |
+| `AVERAGE()` | Avg Review Score, Avg Delivery Days | Calculates averages |
+| `CALCULATE()` | OnTime %, Revenue LY | Modifies filter context |
+| `SAMEPERIODLASTYEAR()` | Revenue LY | Time intelligence (year-over-year) |
+| `DIVIDE()` | Avg Order Value, OnTime %, Revenue Growth %, Category Revenue % | Safe division with handling of zero |
+| `RANKX()` | Top Product Rank | Creates rankings |
+| `ALL()` | Category Revenue %, Top Product Rank | Removes filters from columns |
+
+---
+
+#### How Filter Context Affects These Measures
+
+| Measure | Filter Context Impact |
+|---|---|
+| **Total Revenue** | Changes based on product category, region, date selections |
+| **Total Orders** | Affected by customer, product, or time slicers |
+| **Avg Order Value** | Reflects filtering (e.g., shows higher value for Corporate customers) |
+| **Revenue LY** | Respects current date context but looks at previous year |
+| **Category Revenue %** | Shows percentage of total within current filter context |
+| **Top Product Rank** | Recalculates ranking based on current filter selections |
+
+---
+
+#### Where Each Measure is Used in the Dashboard
+
+| Measure | Dashboard Page | Visual Type |
+|---|---|---|
+| Total Revenue | Page 1, 2, 3 | KPI Card, Bar Charts |
+| Total Orders | Page 1 | KPI Card |
+| Avg Order Value | Page 1 | KPI Card |
+| Total Items Sold | Page 1 | KPI Card |
+| Total Profit | Page 2 | Table, Matrix |
+| Avg Review Score | Page 2 | Bar Chart, Scatter Plot |
+| Avg Delivery Days | Page 3 | Scatter Plot |
+| OnTime % | Page 1, 3 | Donut Chart |
+| Revenue LY | Page 3 | Time trend comparison |
+| Revenue Growth % | Page 3 | Time trend comparison |
+| Category Revenue % | Page 2 | Matrix, Bar Chart |
+| Top Product Rank | Page 2 | Table |
 # Power BI Dashboards
